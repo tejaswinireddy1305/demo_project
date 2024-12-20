@@ -1,0 +1,78 @@
+class Elevator:
+    def __init__(self, floors):
+        self.current_floor = 1
+        self.total_floors = floors
+        self.door_open = False
+
+    def open_door(self):
+        if self.door_open:
+            print("The door is already open.")
+        else:
+            self.door_open = True
+            print("The door opens.")
+
+    def close_door(self):
+        if not self.door_open:
+            print("The door is already closed.")
+        else:
+            self.door_open = False
+            print("The door closes.")
+
+    def move_to_floor(self, floor):
+        if floor < 1 or floor > self.total_floors:
+            print(f"Invalid floor. Please select a floor between 1 and {self.total_floors}.")
+            return
+
+        if self.door_open:
+            print("Please close the door before moving.")
+            return
+
+        if floor == self.current_floor:
+            print(f"You are already on floor {floor}.")
+            return
+
+        print(f"Moving from floor {self.current_floor} to floor {floor}...")
+        self.current_floor = floor
+        print(f"Arrived at floor {self.current_floor}.")
+
+    def status(self):
+        print(f"Current floor: {self.current_floor}")
+        print(f"Door status: {'Open' if self.door_open else 'Closed'}")
+
+
+# Run the Elevator Simulation
+def main():
+    print("Welcome to the Elevator Simulation!")
+    floors = int(input("Enter the number of floors in the building: "))
+    elevator = Elevator(floors)
+
+    while True:
+        print("\nWhat would you like to do?")
+        print("1. Open door")
+        print("2. Close door")
+        print("3. Move to a specific floor")
+        print("4. Check elevator status")
+        print("5. Exit")
+
+        choice = input("Enter your choice: ")
+
+        if choice == "1":
+            elevator.open_door()
+        elif choice == "2":
+            elevator.close_door()
+        elif choice == "3":
+            try:
+                floor = int(input("Enter the floor number: "))
+                elevator.move_to_floor(floor)
+            except ValueError:
+                print("Invalid input. Please enter a number.")
+        elif choice == "4":
+            elevator.status()
+        elif choice == "5":
+            print("Exiting the Elevator Simulation. Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main()
